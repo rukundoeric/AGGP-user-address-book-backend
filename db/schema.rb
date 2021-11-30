@@ -13,26 +13,28 @@
 ActiveRecord::Schema.define(version: 2021_11_30_002602) do
 
   create_table "contacts", force: :cascade do |t|
-    t.string "fist_name"
+    t.string "first_name"
     t.string "last_name"
-    t.integer "phonenumber_id"
-    t.integer "email_id"
+    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["email_id"], name: "index_contacts_on_email_id"
-    t.index ["phonenumber_id"], name: "index_contacts_on_phonenumber_id"
+    t.index ["user_id"], name: "index_contacts_on_user_id"
   end
 
   create_table "emails", force: :cascade do |t|
     t.string "email"
+    t.integer "contact_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["contact_id"], name: "index_emails_on_contact_id"
   end
 
   create_table "phonenumbers", force: :cascade do |t|
     t.string "phonenumber"
+    t.integer "contact_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["contact_id"], name: "index_phonenumbers_on_contact_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -41,6 +43,7 @@ ActiveRecord::Schema.define(version: 2021_11_30_002602) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "contacts", "emails"
-  add_foreign_key "contacts", "phonenumbers"
+  add_foreign_key "contacts", "users"
+  add_foreign_key "emails", "contacts"
+  add_foreign_key "phonenumbers", "contacts"
 end
