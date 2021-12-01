@@ -1,14 +1,18 @@
-class ContactController < ApplicationController
-  before_action :set_current_user, only: %i[index create show destroy update]
+class ContactsController < ApplicationController
   before_action :set_contact, only: %i[show update destroy]
 
   def index
-    @contacts = current_user.contacts
+    q = request.query_parameters[:q]
+    @contacts = if q
+                  Contact.search(q)
+                else
+                  Contact.all
+                end
     render :all, formats: :json, status: :ok
   end
 
   def create
-    @contact = current_user.contacts.new(contact_params)
+    @contact = Contact.new(contact_params)
     if @contact.save
       render :create, formats: :json, status: :created
     else
@@ -45,6 +49,6 @@ class ContactController < ApplicationController
   end
 
   def contact_params
-    params.require(:contact).permit(:first_name, :last_name)
+    params.require(:contact).permit(:first_name, :last_name, :phonenumbers, :emails)
   end
 end
