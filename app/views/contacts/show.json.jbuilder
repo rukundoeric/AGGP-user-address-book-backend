@@ -1,3 +1,6 @@
 json.data do
-  json.contact @contact
+  json.contact JSON
+    .parse(
+      @contact.to_json(include: %i[phones emails])
+    )
 end
