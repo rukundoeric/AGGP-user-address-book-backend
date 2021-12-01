@@ -41,7 +41,7 @@ This is a simple address book. you can create, update, delete and manage contact
 
 Contributions, issues and feature requests are welcome!
 
-Feel free to check the [issues page](issues/).
+Feel free to check the [issues page](https://github.com/rukundoeric/AGGP-user-address-book-backend/issues).
 
 ## Show your support
 
