@@ -1,6 +1,6 @@
 class Contact < ApplicationRecord
-  has_many :phones
-  has_many :emails
+  has_many :phones, dependent: :destroy 
+  has_many :emails, dependent: :destroy 
 
   validates :first_name, :last_name, presence: { message: 'Firstname and Lastname must not be empty!' }
 
