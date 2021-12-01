@@ -3,7 +3,6 @@ json.data do
     @contact,
     :id,
     :first_name,
-    :last_name,
-    :user_id
+    :last_name
   )
 end
