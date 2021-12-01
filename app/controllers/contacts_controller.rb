@@ -14,6 +14,10 @@ class ContactsController < ApplicationController
   def create
     @contact = Contact.new(contact_params)
     if @contact.save
+      phones = JSON.parse(params[:phones])
+      emails = JSON.parse(params[:emails])
+      @contact.phones.create!(phones)
+      @contact.emails.create!(emails)
       render :create, formats: :json, status: :created
     else
       @error = @contact.errors
@@ -49,6 +53,6 @@ class ContactsController < ApplicationController
   end
 
   def contact_params
-    params.require(:contact).permit(:first_name, :last_name, :phonenumbers, :emails)
+    params.require(:contact).permit(:first_name, :last_name)
   end
 end
